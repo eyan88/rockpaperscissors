@@ -13,7 +13,6 @@ function computerPlay() {
 
 function playRound() {
     let computerSelection = computerPlay();
-    console.log(computerSelection);
     computerSelection = computerSelection.toUpperCase();
 
     let playerSelection = prompt("Rock, paper, or scissors?");
@@ -35,8 +34,19 @@ function playRound() {
 }
 
 function game() {
+    let playerScore = 0;
+    let computerScore = 0;
+    let roundResult = "";
     for (let i = 0; i < 5; i++) {
-        console.log(playRound());
+        roundResult = playRound();
+        console.log(roundResult);
+        if(roundResult.toUpperCase() == "YOU WIN!") {
+            playerScore++;
+        }
+        if(roundResult.toUpperCase() == "YOU LOSE!") {
+            computerScore++;
+        }
+        console.log(`player score: ${playerScore} computer score: ${computerScore}`);
     }
     return;
 }
