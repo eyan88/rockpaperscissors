@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+}
+
+.buttonSection {
+    padding: 15px;
+    flex-direction: column;
+}
+
+button {
+    border: none;
+    font-size: 24px;
+    border-radius: 10px;
+    flex-direction: row;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #959595;
+    transition-duration: 0.4s;
+}
+
+.scores {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+#playerScore {
+    padding: 15px;
+}
+
+#computerScore {
+    padding: 15px;
+}
