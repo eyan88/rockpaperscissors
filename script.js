@@ -1,3 +1,46 @@
+let playerScore = 0;
+let computerScore = 0;
+
+const container = document.querySelector('#container');
+
+//button constants
+const buttons = document.querySelectorAll('button');
+
+ //constant for game and round messages
+const roundMessage = document.createElement('div');
+const gameMessage = document.createElement('div');
+gameMessage.textContent = 'Play a game of Rock, Paper Scissors! Click a button to start!';
+
+//score constants to update
+const userScore = document.querySelector('#playerScore');
+const botScore = document.querySelector('#computerScore');
+
+container.appendChild(roundMessage);
+
+//event listener for each button
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        console.log(playRound(button.id));
+    })
+});
+
+//function to check win conditions
+function winCondition() {
+    if(playerScore === 5) {
+        gameMessage.textContent = 'Player wins the game!';
+    }
+    else if(computerScore === 5) {
+        gameMessage.textContent = 'Computer wins the game!';
+    }
+
+}
+
+//function to update scores
+function updateScore() {
+    userScore.textContent = `${playerScore}`;
+    botScore.textContent = `${computerScore}`;
+}
+
 function computerPlay() {
     let select = Math.floor(Math.random()*3);
     if (select == 0) {
@@ -11,44 +54,34 @@ function computerPlay() {
     }
 }
 
-function playRound() {
+function playRound(playerSelection) {
     let computerSelection = computerPlay();
-    computerSelection = computerSelection.toUpperCase();
+    console.log(computerSelection);
 
-    let playerSelection = prompt("Rock, paper, or scissors?");
+    computerSelection = computerSelection.toUpperCase();
     playerSelection = playerSelection.toUpperCase();
 
     if (playerSelection === computerSelection) {
-        return "Tie!";
+        roundMessage.textContent = 'Tie!';
+        winCondition();
+        return;
     }
     if (playerSelection == "SCISSORS" && computerSelection == "PAPER" || 
         playerSelection == "ROCK" && computerSelection == "SCISSORS" || 
         playerSelection == "PAPER" && computerSelection == "ROCK") {
-        return "You win!";
+        roundMessage.textContent = `You win! ${playerSelection} beats ${computerSelection}`;
+        playerScore++;
+        updateScore();
+        winCondition();
+        return;
     }
     if (playerSelection == "SCISSORS" && computerSelection == "ROCK" ||
         playerSelection == "ROCK" && computerSelection == "PAPER" ||
         playerSelection == "PAPER" && computerSelection == "SCISSORS") {
-        return "You lose!";
+        roundMessage.textContent = `You lose! ${computerSelection} beats ${playerSelection}`;
+        computerScore++;
+        updateScore();
+        winCondition();
+        return;
     }
 }
-
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let roundResult = "";
-    for (let i = 0; i < 5; i++) {
-        roundResult = playRound();
-        console.log(roundResult);
-        if(roundResult.toUpperCase() == "YOU WIN!") {
-            playerScore++;
-        }
-        if(roundResult.toUpperCase() == "YOU LOSE!") {
-            computerScore++;
-        }
-        console.log(`player score: ${playerScore} computer score: ${computerScore}`);
-    }
-    return;
-}
-
-game();
